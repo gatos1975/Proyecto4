@@ -82,7 +82,7 @@ class Alumnos_Model {
     }
   
     cedula_repetida(){
-      var Cedula = this.Ced_alumnos;
+      var Cedula = this.ced_alumnos;
       $.post("../../Controllers/alumnos.controller.php?op=cedula_repetida", {Cedula: Cedula}, (res) => {
           res = JSON.parse(res);
           if( parseInt(res.cedula_repetida) > 0){
@@ -97,22 +97,86 @@ class Alumnos_Model {
       })
     }
   
-    /*verifica_correo(){
-      var Correo = this.Correo;
-      $.post("../../Controllers/usuario.controller.php?op=verifica_correo", {Correo: Correo}, (res) => {
-          res = JSON.parse(res);
-          if( parseInt(res.cedula_repetida) > 0){
-              $('#CorreoRepetido').removeClass('d-none');
-              $('#CorreoRepetido').html('El correo ingresado, ya exite en la base de datos');
-              $('button').prop('disabled', true);
-          }else{
-              $('#CorreoRepetido').addClass('d-none');
-              $('button').prop('disabled', false);
-          }
-      })
-    }*/
   
+    uno() {
+      var cod_alumnos = this.cod_alumnos;
+      $.post(
+        "../../Controllers/alumnos.controller.php?op=uno",
+        { cod_alumnos: cod_alumnos },
+        (res) => {
+          console.log(res);
+          res = JSON.parse(res);
+          $("#cod_alumnos").val(res.cod_alumnos);
+          $("#ced_alumnos").val(res.ced_alumnos);
+          $("#nom_alumnos").val(res.nom_alumnos);
+          $("#fecn_alumnos").val(res.fecn_alumnos);
+          $("#luz_alumnos").val(res.luz_alumnos);
+          $("#dom_alumnos").val(res.dom_alumnos);
+          $("#esp_alumnos").val(res.esp_alumnos);
+          $("#niv_alumnos").val(res.niv_alumnos);
+          $("#rep_alumnos").val(res.rep_alumnos);
+
+        }
+      );
+      $("#Modal_alumnos").modal("show");
+    }
+  
+    editar() {
+      var dato = new FormData();
+      dato = this.frm_alumnos;
+      $.ajax({
+        url: "../../Controllers/alumnos.controller.php?op=actualizar",
+        type: "POST",
+        data: dato,
+        contentType: false,
+        processData: false,
+        success: function (res) {
+          res = JSON.parse(res);
+          if (res === "ok") {
+            Swal.fire("alumnos", "Alumno Registrado", "success");
+            todos_controlador();
+          } else {
+            Swal.fire("Error", res, "error");
+          }
+        },
+      });
+      this.limpia_Cajas();
+    }
+  
+    eliminar() {
+      var cod_alumnos = this.cod_alumnos;
+  
+      Swal.fire({
+        title: "alumnos",
+        text: "Esta seguro de eliminar el alumno",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Eliminar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.post(
+            "../../Controllers/alumnos.controller.php?op=eliminar",
+            { cod_alumnos: cod_alumnos },
+            (res) => {
+              console.log(res);
+              
+              res = JSON.parse(res);
+              if (res === "ok") {
+                Swal.fire("alumnos", "Alumno Eliminado", "success");
+                todos_controlador();
+              } else {
+                Swal.fire("Error", res, "error");
+              }
+            }
+          );
+        }
+      });
+      this.limpia_Cajas();
+    }
     limpia_Cajas(){
+      document.getElementById("cod_alumnos").value = "";
       document.getElementById("ced_alumnos").value = "";
       document.getElementById("nom_alumnos").value = "";  
       document.getElementById("fecn_alumnos").value = "";

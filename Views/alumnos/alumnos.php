@@ -60,6 +60,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                <input type="hidden" name="cod_alumnos" id="cod_alumnos">
                     <div class="form-group">
                         <label for="Cédula">Cédula</label>
                         <input type="text" onfocusout="algoritmo_cedula();cedula_repetida();" required class="form-control" id="ced_alumnos" name="ced_alumnos" placeholder="Cédula">

@@ -47,12 +47,12 @@ class Clase_Alumnos
             $con->close();
         }
     }
-    public function actualizar($UsuarioId, $Cedula, $Nombres, $Apellidos, $Telefono, $Correo, $Contrasenia, $Rol)
+    public function actualizar($ced_alumnos, $nom_alumnos, $fecn_alumnos, $luz_alumnos, $dom_alumnos, $esp_alumnos, $niv_alumnos, $rep_alumnos,$cod_alumnos)
     {
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "UPDATE `usuarios` SET `Cedula`='$Cedula',`Nombres`='$Nombres',`Apellidos`='$Apellidos',`Telefono`='$Telefono',`Correo`='$Correo',`Contrasenia`='$Contrasenia',`Rol`='$Rol' WHERE `UsuarioId`= $UsuarioId";
+            $cadena = "UPDATE `alumnos` SET `ced_alumnos`='$ced_alumnos',`nom_alumnos`='$nom_alumnos',`fecn_alumnos`='$fecn_alumnos',`luz_alumnos`='$luz_alumnos',`dom_alumnos`='$dom_alumnos',`esp_alumnos`='$esp_alumnos',`niv_alumnos`='$niv_alumnos',`rep_alumnos`='$rep_alumnos' WHERE `cod_alumnos`= $cod_alumnos";
             $result = mysqli_query($con, $cadena);
             return "ok";
         } catch (Throwable $th) {
@@ -61,12 +61,12 @@ class Clase_Alumnos
             $con->close();
         }
     }
-    public function eliminar($UsuarioId)
+    public function eliminar($cod_alumnos)
     {
         try {
             $con = new Clase_Conectar_Base_Datos();
             $con = $con->ProcedimientoConectar();
-            $cadena = "delete from usuarios where UsuarioId=$UsuarioId";
+            $cadena = "delete from alumnos where cod_alumnos=$cod_alumnos";
             $result = mysqli_query($con, $cadena);
             return "ok";
         } catch (Throwable $th) {

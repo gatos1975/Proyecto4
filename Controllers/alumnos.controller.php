@@ -32,23 +32,24 @@ switch ($_GET["op"]) {
         echo json_encode($datos); //devuelvo el arreglo en formato json
         break;
     case 'actualizar':
-        $UsuarioId = $_POST["UsuarioId"];
-        $Cedula = $_POST["Cedula"];
-        $Nombres = $_POST["Nombres"];
-        $Apellidos = $_POST["Apellidos"];
-        $Telefono = $_POST["Telefono"];
-        $Contrasenia = $_POST["Contrasenia"];
-        $Correo = $_POST["Correo"];
-        $Rol = $_POST["Rol"];
+        $cod_alumnos = $_POST["cod_alumnos"];
+        $ced_alumnos = $_POST["ced_alumnos"];
+        $nom_alumnos = $_POST["nom_alumnos"];
+        $fecn_alumnos = $_POST["fecn_alumnos"];
+        $luz_alumnos = $_POST["luz_alumnos"];
+        $dom_alumnos = $_POST["dom_alumnos"];
+        $esp_alumnos = $_POST["esp_alumnos"];
+        $niv_alumnos = $_POST["niv_alumnos"];
+        $rep_alumnos = $_POST["rep_alumnos"];
 
         $datos = array(); //defino un arreglo
-        $datos = $usuarios->actualizar($UsuarioId, $Cedula, $Nombres, $Apellidos, $Telefono, $Contrasenia, $Correo, $Rol); //llamo al modelo de usuarios e invoco al procedimiento actual
+        $datos = $alumnos->actualizar($ced_alumnos, $nom_alumnos, $fecn_alumnos, $luz_alumnos, $dom_alumnos, $esp_alumnos, $niv_alumnos, $rep_alumnos,$cod_alumnos); //llamo al modelo de usuarios e invoco al procedimiento actual
         echo json_encode($datos); //devuelvo el arreglo en formato json
         break;
     case 'eliminar':
-        $UsuarioId = $_POST["UsuarioId"]; //defino una variable para almacenar el id del usuario, la variable se obtiene mediante POST
+        $cod_alumnos = $_POST["cod_alumnos"]; //defino una variable para almacenar el id del usuario, la variable se obtiene mediante POST
         $datos = array(); //defino un arreglo
-        $datos = $usuarios->eliminar($UsuarioId); //llamo al modelo de usuarios e invoco al procedimiento uno y almaceno en una variable
+        $datos = $alumnos->eliminar($cod_alumnos); //llamo al modelo de usuarios e invoco al procedimiento uno y almaceno en una variable
         echo json_encode($uno); //devuelvo el arreglo en formato json
         break;
     case 'actualizar_contrasenia':
